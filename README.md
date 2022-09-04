@@ -1,6 +1,7 @@
 # Running Clock
 
-`function(unit, unitOwner)
+```
+function(unit, unitOwner)
 
     if UnitAffectingCombat(unit) then
         if not combatActive then
@@ -26,4 +27,5 @@
             return format("%01.f:%02.f", floor(runningClock / 60) , floor(runningClock % 60))
         end
     end
-end`
+end
+```
