@@ -1,38 +1,29 @@
-# Cyberpunk 2077 Optimal Settings
+# Running Clock
 
-- Screen Spaced Reflections: Low
-- Ambient Occlusion SSAO: Low
-- Volumetric Clouds: Med
-- Colour Precision: Med
-- Local Shadow Quality: High
-- Local Shadow Geometry: High
-- Cascaded Shadow Resolution: Med
-- Cascaded Shadow Range: High
-- Distant Shadows Resolution: High
-- Contact Shadows: ON
-- Max Dynamic Decals: Ultra
-- Improved Facial Lighting Geometry: ON
-- Level of Detail: High
-- Subsurface Scattering: High
-- Volumetric Fog Quality: Med
-- Mirror Quality: High
+`function(unit, unitOwner)
 
-## DLSS
-- 1080p: High
-- 1440p: Balanced
-- 4k: Performance
+    if UnitAffectingCombat(unit) then
+        if not combatActive then
+            startTime = GetTime()
+            runningClock = GetTime() - startTime
+            combatActive = true
+            outputText = True    
+        else
+            runningClock = GetTime() - startTime
+        end
 
-## Ray Tracing
-
-**Heavy**
-
-Reflections ON, Shadows OFF, Lighting Medium
-
-**Light**
-
-Reflections OFF, Shadows OFF, Lighting Medium
-
-## Personal Preference
-- Motion Blur
-- Lens Flare
-- Chromatic Aberration
+        initialRun = true
+    else
+        combatActive = false
+    end
+    
+    if not initialRun then
+        return ""
+    else
+        if not runningClock then
+            return ""
+        else
+            return format("%01.f:%02.f", floor(runningClock / 60) , floor(runningClock % 60))
+        end
+    end
+end`
